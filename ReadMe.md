@@ -33,7 +33,6 @@ REST (Representational State Transfer) — архитектурный стиль
 * 404 Not Found — ресурс не найден
 * 500 Internal Server Error — ошибка сервера
 
-
 ## Варианты запуска приложения
 * Запуск приложения из WAR (embedded Tomcat) локально (java -jar rest-spring6-0.0.1-SNAPSHOT.war)
 * Запуск приложения на Tomcat (Docker - tomcat)
@@ -50,8 +49,11 @@ REST (Representational State Transfer) — архитектурный стиль
     * Upload файла с сохранением в файловой системе
     * Download файла из файловой системы
     * Получение списка файлов из директории
-* JacksonConfig - Регистрация модуля для особой десериализации строк в JSON. Удаление пробелов в начале и конце строки
+* TrimStringDeserializer - Регистрация модуля для особой десериализации строк в JSON. Удаление пробелов в начале и конце строки
 * Получение доступа к статичным ресурсам (data/images). Пример конфигурации в application.yaml и в Java
+* Пример использования Version
+* Пример использования Retry
+* Различные HTTP Client
  
 ## Application endpoints
 - Embedded Tomcat Local: http://localhost:8080/rest-spring/swagger-ui.html

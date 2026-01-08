@@ -3,8 +3,6 @@ spring:
     # non 'null' and empty ""
     DEFAULT_PROPERTY_INCLUSION: NON_EMPTY
     DATE_FORMAT: yyyy-MM-dd HH:mm:ss
-    serialization:
-      WRITE_DATES_AS_TIMESTAMPS: false
     deserialization:
       FAIL_ON_UNKNOWN_PROPERTIES: false
 
