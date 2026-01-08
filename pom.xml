@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>lv.nixx.poc</groupId>
-    <artifactId>rest-spring6</artifactId>
+    <artifactId>rest-spring</artifactId>
     <version>0.0.2-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>rest-spring6</name>
