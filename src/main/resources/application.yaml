@@ -5,10 +5,12 @@ spring:
     DATE_FORMAT: yyyy-MM-dd HH:mm:ss
     deserialization:
       FAIL_ON_UNKNOWN_PROPERTIES: false
-
   web:
     resources:
       static-locations: file:./data/images
+  mvc:
+    problemdetails:
+      enabled: true
 
 management:
   endpoints:

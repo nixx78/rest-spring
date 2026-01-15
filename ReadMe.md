@@ -54,6 +54,7 @@ REST (Representational State Transfer) — архитектурный стиль
 * Пример использования Version
 * Пример использования Retry
 * Различные HTTP Client
+* Пример использования: RFC 7807 (Problem Details for HTTP APIs)
  
 ## Application endpoints
 - Embedded Tomcat Local: http://localhost:8080/rest-spring/swagger-ui.html

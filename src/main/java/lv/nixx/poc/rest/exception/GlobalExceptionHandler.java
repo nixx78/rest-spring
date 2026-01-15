@@ -10,12 +10,15 @@ import org.apache.commons.text.StringEscapeUtils;
 import org.hibernate.validator.internal.engine.path.NodeImpl;
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.net.URI;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -23,7 +26,7 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -117,6 +120,19 @@ public class GlobalExceptionHandler {
             this.fieldsResponse = fieldsResponse.stream()
                     .collect(groupingBy(ObjectValidationResponse::getIndex, TreeMap::new, toList()));
         }
+    }
+
+    @ExceptionHandler(UnsupportedApiVersionException.class)
+    public ProblemDetail handle(UnsupportedApiVersionException ex, HttpServletRequest request) {
+
+        ProblemDetail pd = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        pd.setTitle("Invalid API version");
+        pd.setDetail(ex.getMessage());
+        pd.setInstance(URI.create(request.getRequestURI()));
+        pd.setProperty("supportedVersions", List.of("1.0", "2.0"));
+        pd.setProperty("wrongVersion", ex.getVersion());
+
+        return pd;
     }
 
     @Getter
