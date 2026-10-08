@@ -70,3 +70,8 @@ REST (Representational State Transfer) — архитектурный стиль
 spring-boot-maven-plugin - нужен только для запуска приложения из WAR файла, если приложения будет
 развертываться на Tomcat сервере, то данных плагин можно не включать. 
 
+
+#ToDo
+* ConcurrencyLimit (Spring 7) — REST protection
+* Validation + ProblemDetail (очень практично)
+* API Error contract (RFC 7807 + domain errors)

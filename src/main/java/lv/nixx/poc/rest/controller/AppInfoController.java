@@ -9,6 +9,8 @@ import java.util.Map;
 @RestController
 public class AppInfoController {
 
+    private static final String NOT_SET = "NOT_SET";
+
     private final AppInfoProvider appInfoProvider;
 
     public AppInfoController(AppInfoProvider appInfoProvider) {
@@ -22,9 +24,10 @@ public class AppInfoController {
 
     @GetMapping("/variables")
     public Map<String, String> getVariables() {
+        Map<String, String> env = System.getenv();
         return Map.of(
-                "VARIABLE_FROM_DOCKERFILE", String.valueOf(System.getenv("VARIABLE_FROM_DOCKERFILE")),
-                "SPRING_PROFILES_ACTIVE", String.valueOf(System.getenv("SPRING_PROFILES_ACTIVE"))
+                "VARIABLE_FROM_DOCKERFILE", env.getOrDefault("VARIABLE_FROM_DOCKERFILE", NOT_SET),
+                "SPRING_PROFILES_ACTIVE", env.getOrDefault("SPRING_PROFILES_ACTIVE", NOT_SET)
         );
     }
 

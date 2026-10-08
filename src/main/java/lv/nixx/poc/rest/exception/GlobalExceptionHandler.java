@@ -95,33 +95,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(new CollectionValidationResponse(request.getRequestURI(), request.getMethod(), fieldValidations));
     }
 
-    private String escapeValue(Object v) {
-        if (v == null) {
-            return null;
-        }
-
-        if (v instanceof String) {
-            return StringEscapeUtils.escapeHtml4((String) v);
-        }
-        return v.toString();
-    }
-
-
-    @Getter
-    static class CollectionValidationResponse {
-        private final String path;
-        private final String httpMethod;
-
-        private final Map<Integer, List<ObjectValidationResponse>> fieldsResponse;
-
-        CollectionValidationResponse(String path, String httpMethod, Collection<ObjectValidationResponse> fieldsResponse) {
-            this.path = path;
-            this.httpMethod = httpMethod;
-            this.fieldsResponse = fieldsResponse.stream()
-                    .collect(groupingBy(ObjectValidationResponse::getIndex, TreeMap::new, toList()));
-        }
-    }
-
     @ExceptionHandler(UnsupportedApiVersionException.class)
     public ProblemDetail handle(UnsupportedApiVersionException ex, HttpServletRequest request) {
 
@@ -134,6 +107,18 @@ public class GlobalExceptionHandler {
 
         return pd;
     }
+
+    private String escapeValue(Object v) {
+        if (v == null) {
+            return null;
+        }
+
+        if (v instanceof String) {
+            return StringEscapeUtils.escapeHtml4((String) v);
+        }
+        return v.toString();
+    }
+
 
     @Getter
     @Builder
@@ -153,6 +138,21 @@ public class GlobalExceptionHandler {
         private final String field;
         private final String value;
         private final String message;
+    }
+
+    @Getter
+    static class CollectionValidationResponse {
+        private final String path;
+        private final String httpMethod;
+
+        private final Map<Integer, List<ObjectValidationResponse>> fieldsResponse;
+
+        CollectionValidationResponse(String path, String httpMethod, Collection<ObjectValidationResponse> fieldsResponse) {
+            this.path = path;
+            this.httpMethod = httpMethod;
+            this.fieldsResponse = fieldsResponse.stream()
+                    .collect(groupingBy(ObjectValidationResponse::getIndex, TreeMap::new, toList()));
+        }
     }
 
 }
